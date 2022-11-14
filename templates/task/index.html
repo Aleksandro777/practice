@@ -7,7 +7,7 @@
   {% if task_list %}
       {% for task in task_list %}
         <ul>
-          <li>{{ task.content }}
+          <li> <strong>{{ task.content }} </strong>
             {% if task.is_done is False %}
              Not done
                <a href="{% url 'task:complete_task' pk=task.pk %}" class="btn btn-success link-to-page">Complete
@@ -19,7 +19,7 @@
                </a>
                {% endif %}
           </li>
-          <li>Created: {{ task.created }} {{ task.deadline }}</li>
+          <li>Created: {{ task.created }} Deadline: {{ task.deadline }}</li>
           <li>
             {%for tag in task.tags.all %}
               {{ tag }}
