@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      Tasks <a class="btn btn-primary" href="{% url 'task:task-create' %}" >add task</a>
+    </h1>
+  {% if task_list %}
+      {% for task in task_list %}
+        <ul>
+          <li>{{ task.content }}
+            {% if task.is_done is False %}
+             Not done
+               <a href="{% url 'task:complete_task' pk=task.pk %}" class="btn btn-success link-to-page">Complete
+              </a>
+              {% else %}
+               Done
+              <a href="{% url 'task:complete_task' pk=task.pk %}" class="btn btn-secondary link-to-page">Undo
+
+               </a>
+               {% endif %}
+          </li>
+          <li>Created: {{ task.created }} {{ task.deadline }}</li>
+          <li>
+            {%for tag in task.tags.all %}
+              {{ tag }}
+              {% endfor %}
+          <a class="btn btn-primary" href="{% url 'task:task-update' pk=task.pk %}">Update</a>
+          <a class="btn btn-dark" href="{% url 'task:task-delete' pk=task.pk %}">Delete</a>
+              </li>
+
+        </ul>
+
+      {% endfor %}
+    {% else %}
+      There are no tasks
+   {% endif %}
+
+{% endblock %}
